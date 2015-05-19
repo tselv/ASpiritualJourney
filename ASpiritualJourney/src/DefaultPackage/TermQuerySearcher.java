@@ -23,6 +23,7 @@ public class TermQuerySearcher extends AbstractSearcher {
 		TermQuery termQuery = new TermQuery(term);
 
 		QueryParser parser = new QueryParser(fieldValue, analyzer);
+		@SuppressWarnings("unused")
 		Query query = null;
 		try {
 			 query = parser.parse(fieldValue);
