@@ -41,19 +41,19 @@ public class ShoppingCart extends HttpServlet {
     	scanner.useDelimiter("~");
     	while(scanner.hasNextLine()) {
     		String s1 = scanner.findInLine("[^~]*");
-			System.out.println(s1);
+			//System.out.println(s1);
 			scanner.findInLine("[~]");
 			int i1 = Integer.parseInt(scanner.findInLine("[^~]*"));
-			System.out.println(i1);
+			//System.out.println(i1);
 			scanner.findInLine("[~]");
 			double i2 = Double.parseDouble(scanner.findInLine("[^~]*"));
-			System.out.println(i2);
+			//System.out.println(i2);
 			scanner.findInLine("[~]");
 			String s2 = scanner.findInLine("[^~]*");
-			System.out.println(s2);
+			//System.out.println(s2);
 			scanner.findInLine("[~]");
 			String s3 = scanner.findInLine("[^~]*");
-			System.out.println(s3);
+			//System.out.println(s3);
 
 			String divider = scanner.findInLine("[~]");
 			
