@@ -1,25 +1,26 @@
-package DefaultPackage;
+package com.DefaultPackage.Input;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import org.apache.lucene.document.Document;
-import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.Field.Store;
+import org.apache.lucene.document.StringField;
+import org.apache.lucene.document.TextField;
 
-public class BigInputDocuments implements InputDocuments {
+import static DefaultPackage.FirstClass.BIGINPUTFILE;;
 
-	ArrayList<String> titles = new ArrayList<String>();
-	ArrayList<String> IDs = new ArrayList<String>();
-	ArrayList<String> contents = new ArrayList<String>();
-	ArrayList<Document> docs = new ArrayList<Document>();
+public class BigInputDocuments extends GuicePainsMe {
+
+	DocIterator it = new DocIterator();
 	Scanner reader;
 	
 	public BigInputDocuments() throws IOException {
-		this("C:\\Users\\Work\\Documents\\input.txt");
+		this(BIGINPUTFILE);
 		System.out.println("Requires change in default constructor.");
 	}
 	
@@ -28,13 +29,7 @@ public class BigInputDocuments implements InputDocuments {
 		reader = new Scanner(new BufferedReader(new FileReader(path)));
 	}
 	
-	@Override
-	public ArrayList<Document> getDocArray() {
-		if(docs.size() != 0)
-			return docs;
-		
-		
-		while(reader.hasNext()) {
+	public Document getNextDoc() {
 			Document doc = new Document();
 			
 			reader.useDelimiter("[\\:][T]");
@@ -45,22 +40,45 @@ public class BigInputDocuments implements InputDocuments {
 
 			reader.useDelimiter("[\\:][B]");
 			String title = reader.next().trim().substring(4);
-			doc.add(new StringField("title", title, Store.YES));
+			doc.add(new TextField("title", title, Store.YES));
 //			System.out.println("Title:");
 //			System.out.println(title);
 
 
 			reader.useDelimiter("[\\:][D][\\:]");
 			String content = reader.next().trim().substring(4);
-			doc.add(new StringField("content", content, Store.YES));
+			doc.add(new TextField("content", content, Store.YES));
 //			System.out.println("Content:");
 //			System.out.println(content);
 			
-			docs.add(doc);
+			return doc;
+	}
+	
+	@Override
+	public Iterator<Document> iterator() {
+		return it;
+	}
+	
+	public class DocIterator implements Iterator<Document> {
+		
+		@Override
+		public boolean hasNext() {
+			return reader.hasNext();
+		}
+
+		@Override
+		public Document next() {
+			if(!hasNext())
+				throw new NoSuchElementException();
+			return getNextDoc();
+		}
+
+		@Override
+		public void remove() {
+			
 		}
 		
 		
-		return docs;
 	}
 
 }

@@ -1,4 +1,4 @@
-package DefaultPackage;
+package com.DefaultPackage.Input;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,19 +7,23 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.apache.lucene.document.Document;
-import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.Field.Store;
+import org.apache.lucene.document.TextField;
 
-public class FileInputDocuments implements InputDocuments {
+import DefaultPackage.FirstClass;
+
+public class FileInputDocuments extends GuicePainsMe {
 	protected ArrayList<File> files = new ArrayList<File>();
 	protected ArrayList<Document> docs = new ArrayList<Document>();
+	FileDocIterator it = new FileDocIterator();
 	
-	private static final String DEFAULTPATH = "C:\\Users\\Work\\Documents\\LuceneTestFolder";
+	
 
 	FileInputDocuments() {
-		this(DEFAULTPATH);
+		this(FirstClass.INPUTFILE);
 	}
 	
 	FileInputDocuments(String path) {
@@ -34,10 +38,7 @@ public class FileInputDocuments implements InputDocuments {
 		}
 	}
 
-	@Override
-	public ArrayList<Document> getDocArray() {
-		return docs;
-	}
+
 		
 	protected void getFiles(final File folder) {
 	    for (final File fileEntry : folder.listFiles()) {
@@ -53,10 +54,8 @@ public class FileInputDocuments implements InputDocuments {
 			Document doc = new Document();
 			String title = fileEntry.getName();
 			String contents = readFileContents(fileEntry.getPath(), StandardCharsets.UTF_8);
-			doc.add(new StringField("title", title, Store.YES));
-			doc.add(new StringField("content", contents, Store.YES));
-			//doc.add(new Field("title", title, Field.Store.YES, Field.Index.ANALYZED));
-			//doc.add(new Field("contents", contents, Field.Store.YES, Field.Index.ANALYZED));
+			doc.add(new TextField("title", title, Store.YES));
+			doc.add(new TextField("content", contents, Store.YES));
 			docs.add(doc);
 		}
 	}
@@ -64,6 +63,33 @@ public class FileInputDocuments implements InputDocuments {
 	protected String readFileContents(String path, Charset encoding) throws IOException {
 		byte[] encoded = Files.readAllBytes(Paths.get(path));
 		return new String(encoded, encoding);
+	}
+	
+	
+	@Override
+	public Iterator<Document> iterator() {
+		return it;
+	}
+	
+	public class FileDocIterator implements Iterator<Document> {
+		private int index = 0;
+		
+		@Override
+		public boolean hasNext() {
+			return index != docs.size();
+		}
+
+		@Override
+		public Document next() {
+			return docs.get(index++);
+		}
+
+		@Override
+		public void remove() {
+			docs.remove(--index);
+		}
+		
+		
 	}
 
 }

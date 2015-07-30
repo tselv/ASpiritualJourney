@@ -1,8 +1,8 @@
-package DefaultPackage;
+package com.DefaultPackage.Writer;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -13,14 +13,22 @@ import org.apache.lucene.index.IndexWriterConfig.OpenMode;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
+import com.DefaultPackage.Input.GuicePainsMe;
+import com.google.inject.Inject;
+
+import DefaultPackage.FirstClass;
+import DefaultPackage.InputDoc;
+
 public class StandardWriter {
 	Analyzer analyzer = new StandardAnalyzer();
 	Directory directory;
 	IndexWriter writer;
+	GuicePainsMe docMaker;
 	
-	
-	public StandardWriter() {
-		this("C:\\Users\\Work\\Documents\\LuceneTest");
+	@Inject
+	public StandardWriter(@InputDoc GuicePainsMe docmaker) {
+		this(FirstClass.WRITERFOLDER);
+		docMaker = docmaker;
 	}
 
 	public StandardWriter(String directoryLocation) {
@@ -37,9 +45,10 @@ public class StandardWriter {
 
 	}
 	
-	public void write(ArrayList<Document> docs) throws IOException {
-		for(Document doc: docs)
-			writer.addDocument(doc);
+	public void write() throws IOException {
+		Iterator<Document> docs = docMaker.iterator();
+		while(docs.hasNext())
+			writer.addDocument(docs.next());
 		writer.commit();
 	}
 	
@@ -47,11 +56,11 @@ public class StandardWriter {
 		writer.close();
 	}
 	
-	Directory getDirectory() {
+	public Directory getDirectory() {
 		return directory;
 	}
 	
-	Analyzer getAnalyzer() {
+	public Analyzer getAnalyzer() {
 		return analyzer;
 	}
 }
