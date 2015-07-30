@@ -1,0 +1,39 @@
+@CHARSET "ISO-8859-1";
+
+#header {
+    background-color:#161C52;
+    color:#1FB2BA;
+    text-align:center;
+    padding:5px;
+}
+
+#book {
+    background-color: #1FB2BA;
+}
+
+body {
+    background-image: url("background2.jpg");
+}
+
+#nav {
+    line-height:30px;
+    background-color:#eeeeee;
+    height:300px;
+    width:180px;
+    float:left;
+    padding:5px;	      
+}
+
+#section {
+    width:500px;
+    float:left;
+    padding:10px;	 	 
+}
+
+#footer {
+    background-color:grey;
+    color:black;
+    clear:both;
+    text-align:center;
+   padding:5px;	 	 
+}
