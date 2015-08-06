@@ -24,38 +24,15 @@ public class Save extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		File newSave = null;
+		Integer saveNumber = (Integer) request.getSession().getAttribute("saveNumber");
+		HashSet<Item> cart = (HashSet<Item>)request.getSession().getAttribute("cart");
+		saveNumber = StorageFunctions.save(cart, saveNumber);
 		
-		int saveNumber = -1;
-		if (request.getSession().getAttribute("savePath") == null) {
-			File saves = new File("C:\\Users\\Work\\Documents\\ShoppingCartSaves");
-			for (int i = (int) (Math.random() * 100000); true; ++i) {
-				File temp = new File(saves, "save" + i + ".txt");
-				if (!temp.exists()) {
-					saveNumber = i;
-					newSave = temp;
-					break;
-				}
-			}
-			request.getSession().setAttribute("savePath", newSave);
-			request.getSession().setAttribute("saveNumber", saveNumber);
-		}
-		else {
-			newSave = (File) request.getSession().getAttribute("savePath");
-			saveNumber = (Integer) request.getSession().getAttribute("saveNumber");
-		}
-		
-		
-		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(newSave));
-		oos.writeObject((HashSet<Item>)request.getSession().getAttribute("cart"));	
-		oos.writeObject((Double)request.getSession().getAttribute("runningTotal"));
-		oos.close();
 		
 		request.setAttribute("saveNumber", saveNumber);
 		String nextJSP = "/SaveDisplay.jsp";
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
 		dispatcher.forward(request,response);
-
 	}
 
 	/**

@@ -17,7 +17,22 @@ var slideDuration = 2000;
 		    $('.reg').fadeOut({ duration: slideDuration, queue: false }).css('display', 'inherit').slideUp(slideDuration);
 		});
 	});
-
+	function accLog() {
+		var xmlHttp = new XMLHttpRequest();
+		xmlHttp.open("POST", "LogInCheck", false);
+		xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		var str = "userName=" + document.getElementById("usernameL").value;
+		str += "&password=" + document.getElementById("pwdL").value;
+		console.log(str);
+		xmlHttp.send(str);
+		if(xmlHttp.responseText == "1") {
+			var url = "gallery.jsp";    
+			$(location).attr('href',url);
+			return false;
+		}	
+		document.getElementById("failedLog").innerHTML='<p class="text-danger">The username or password provided was incorrect</p>';
+		return false;
+	}
 </script>
 </head>
 <body>
@@ -47,15 +62,17 @@ var slideDuration = 2000;
 			<br>
 			<div class="form-group">
 				<div class="col-sm-offset-4 col-sm-4">
-					<button type="submit" class="btn btn-success">Log In</button>
+					<button type="submit" class="btn btn-success" onclick="return accLog();">Log In</button>
 				</div>
 			</div>
 		</form>
 		<div class="form-group">
 			<div class="col-sm-offset-7 col-sm-2">
-				<button class="btn btn-default inButton" onclick="fin()">Don't have an account? Click here</button>
+				<button class="btn btn-default inButton">Don't have an account? Click here</button>
 			</div>
 		</div>
+		
+		<div id="failedLog"></div>
 
 	</div>
 	<div class="container-fluid reg" style="display:none">

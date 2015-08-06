@@ -41,7 +41,10 @@ public class Item implements Serializable{
 	}
 	
 	public String getShortDescription() {
-		return description.substring(0, 100) + (description.length() > 100 ? "..." : "");
+		if (description.length() > 101)
+			return description.substring(0, 100) + (description.length() > 100 ? "..." : "");
+		else
+			return description;
 	}
 	
 	

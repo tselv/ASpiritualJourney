@@ -1,8 +1,11 @@
 package com.tharun.cart;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.util.HashSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,32 +21,40 @@ public class UserNameCheck extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		File loc = new File("C:\\Users\\Work\\Documents\\Accounts\\" + request.getParameter("userName") + ".txt");
-		response.setContentType("text/plain");
-		System.out.println("The Username servlet was called:");
-		System.out.println(request.getParameter("userName"));
-		PrintWriter out = response.getWriter();
-		if(loc.exists())
-			out.print(0);
-		else
-			out.print(1);
-		out.close();
-	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		File loc = new File("C:\\Users\\Work\\Documents\\Accounts\\" + request.getParameter("userName") + ".txt");
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		String name = request.getParameter("name");
 		response.setContentType("text/plain");
 		PrintWriter out = response.getWriter();
-		if(loc.exists())
+		System.out.println(loc.exists());
+		System.out.println(email);
+		System.out.println(password);
+		System.out.println(name);
+		if(loc.exists() || email == null || password == null || name == null) {
 			out.print(0);
-		else
-			out.print(1);
+			out.close();
+			return;
+		}
+
+		loc.createNewFile();
+		Integer saveNumber = (Integer) request.getSession().getAttribute("saveNumber");
+		HashSet<Item> cart = (HashSet<Item>)request.getSession().getAttribute("cart");
+		saveNumber = StorageFunctions.save(cart, saveNumber);
+		request.getSession().setAttribute("saveNumber", saveNumber);
+		
+		
+		FileOutputStream fos = new FileOutputStream(loc);
+		ObjectOutputStream oos = new ObjectOutputStream(fos);
+		oos.writeObject(password);
+		oos.writeObject(saveNumber);
+		
+		
+		out.print(1);
 		out.close();
 	}
 

@@ -14,14 +14,18 @@
 	<div class="container-fluid">
 		<c:forEach var="entry" items="${ItemMap}" varStatus="indexVar">
 			<div class="col-sm-3">
+				<a href="ItemPage?itemId=${entry.value.id}">
+					<h3 class="text-center">${entry.value.name}</h3>
+				</a>
+				<div class="well">
+					<p class="text-center">${entry.value.shortDescription}</p>
+				</div>
 				<a href="ItemPage?itemId=${entry.value.id}"> <img
 					src="${entry.value.imageLoc}"
 					class="img-rounded img-responsive center-block"
 					alt="No Image Found" width="200" height="228">
-				</a> <a href="ItemPage?itemId=${entry.value.id}">
-					<h3 class="text-center">${entry.value.name}</h3>
 				</a>
-				<div class="well"><p class="text-center">${entry.value.shortDescription}</p></div>
+
 			</div>
 			<c:if test="${indexVar.index % 4 == 3}">
 				</div><div class="row">

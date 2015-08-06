@@ -44,7 +44,7 @@ public class ShoppingCart extends HttpServlet {
 			//System.out.println(s1);
 			scanner.findInLine("[~]");
 			int i1 = Integer.parseInt(scanner.findInLine("[^~]*"));
-			//System.out.println(i1);
+			System.out.println(i1);
 			scanner.findInLine("[~]");
 			double i2 = Double.parseDouble(scanner.findInLine("[^~]*"));
 			//System.out.println(i2);
@@ -80,7 +80,7 @@ public class ShoppingCart extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
-		Set<Item> cart = (Set<Item>) session.getAttribute("cart");
+		HashSet<Item> cart = (HashSet<Item>) session.getAttribute("cart");
 		Double total = (Double) session.getAttribute("runningTotal");
 		if(cart == null) {
 			cart = new HashSet<Item>();
@@ -99,6 +99,10 @@ public class ShoppingCart extends HttpServlet {
 			total += it.getPrice();
 		}
 		session.setAttribute("runningTotal", total);
+		
+		Integer saveNumber = (Integer) request.getSession().getAttribute("saveNumber");
+		if(saveNumber != null)
+			StorageFunctions.save(cart, saveNumber);
 		
 		String nextServlet = "/ShoppingCartPrinter";
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextServlet);
