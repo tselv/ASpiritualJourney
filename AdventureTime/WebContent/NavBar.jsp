@@ -17,9 +17,12 @@
 					<ul class="dropdown-menu">
 						<li><a href="Save">Save current cart</a></li>
 						<li><a href="LoadDisplay.jsp">Load a saved cart</a></li>
-					</ul></li>
+					</ul>
+				</li>
 			</ul>
+			
 			<ul class="nav navbar-nav navbar-right">
+
 				<li><a href="Register.jsp"><span
 						class="glyphicon glyphicon-user"></span> Sign Up</a></li>
 				<li><a href="Login.jsp"><span class="glyphicon glyphicon-log-in"></span>
