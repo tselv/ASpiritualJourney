@@ -51,8 +51,9 @@ public class StorageFunctions {
 	
 	public static Double runningTotal(HashSet<Item> cart) {
 		Double total = 0.0;
-		for(Item i : cart)
-			total += i.getPrice();
+		if (cart != null)
+			for (Item i : cart)
+				total += i.getPrice();
 		
 		return total;
 	}

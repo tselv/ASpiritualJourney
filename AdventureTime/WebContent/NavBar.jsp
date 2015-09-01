@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <nav class="navbar navbar-inverse">
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -20,13 +21,19 @@
 					</ul>
 				</li>
 			</ul>
-			
-			<ul class="nav navbar-nav navbar-right">
 
-				<li><a href="Register.jsp"><span
-						class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-				<li><a href="Login.jsp"><span class="glyphicon glyphicon-log-in"></span>
-						Login</a></li>
+			<ul class="nav navbar-nav navbar-right">
+				<c:if test="${saveNumber != null}">
+					<li><a href="LogOut"><span
+							class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+				</c:if>
+				<c:if test="${saveNumber == null}">
+					<li><a href="Register.jsp"><span
+							class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+					<li><a href="Login.jsp"><span
+							class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				</c:if>
+
 			</ul>
 		</div>
 	</div>

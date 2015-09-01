@@ -3,6 +3,7 @@ package com.tharun.cart;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,6 +12,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,11 +35,14 @@ public class ShoppingCart extends HttpServlet {
     		return;
     	Map<Integer, Item> m = new HashMap<Integer, Item>();
     	Scanner scanner = null;
-		try {
-			scanner = new Scanner(new File("C:\\Users\\Work\\Documents\\ItemValues.txt"));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+    	
+    	
+		//scanner = new Scanner(new File("C:\\Users\\Work\\Documents\\ItemValues.txt"));
+		ServletContext context = getServletContext();
+		InputStream resourceContent = context.getResourceAsStream("/WEB-INF/ItemValues.txt");
+		scanner = new Scanner(resourceContent);
+		
+		
     	scanner.useDelimiter("~");
     	while(scanner.hasNextLine()) {
     		String s1 = scanner.findInLine("[^~]*");
