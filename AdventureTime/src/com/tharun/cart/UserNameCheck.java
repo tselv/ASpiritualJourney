@@ -25,7 +25,7 @@ public class UserNameCheck extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		File loc = new File("C:\\Users\\Work\\Documents\\Accounts\\" + request.getParameter("userName") + ".txt");
+		File loc = new File(System.getenv("OSTORE_HOME") + "Accounts\\" + request.getParameter("userName") + ".txt");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String name = request.getParameter("name");
@@ -46,12 +46,14 @@ public class UserNameCheck extends HttpServlet {
 		HashSet<Item> cart = (HashSet<Item>)request.getSession().getAttribute("cart");
 		saveNumber = StorageFunctions.save(cart, saveNumber);
 		request.getSession().setAttribute("saveNumber", saveNumber);
+		request.getSession().setAttribute("clientName", name);
 		
 		
 		FileOutputStream fos = new FileOutputStream(loc);
 		ObjectOutputStream oos = new ObjectOutputStream(fos);
 		oos.writeObject(password);
 		oos.writeObject(saveNumber);
+		oos.writeObject(name);
 		
 		
 		out.print(1);

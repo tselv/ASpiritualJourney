@@ -28,10 +28,10 @@
 				<c:forEach var="item" items="${items}">
 					<tr>
 
-						<td><c:out value="${item.name}" /></td>
-						<td><c:out value="${item.id}" /></td>
-						<td><c:out value="${item.shortDescription}" /></td>
-						<td style="text-align: right"><c:out value="${item.price}" /></td>
+						<td><a class="tableLink" href="ItemPage?itemId=${item.id}"><c:out value="${item.name}" /> </a></td>
+						<td><a class="tableLink" href="ItemPage?itemId=${item.id}"><c:out value="${item.id}" /></a></td>
+						<td><a class="tableLink" href="ItemPage?itemId=${item.id}"><c:out value="${item.shortDescription}" /></a></td>
+						<td style="text-align: right"><a class="tableLink" href="ItemPage?itemId=${item.id}"><c:out value="${item.price}" /></a></td>
 
 					</tr>
 				</c:forEach>

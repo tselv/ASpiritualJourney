@@ -36,6 +36,8 @@ public class LogOut extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getSession().setAttribute("saveNumber", null);
+		request.getSession().setAttribute("clientName", null);
+		request.getSession().setAttribute("cart", null);
 		String nextJSP = "/Login.jsp";
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
 		dispatcher.forward(request,response);

@@ -4,6 +4,25 @@ hr {
 	border-width: 7px; 
 }
 
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: white;
+}
+
+table tr td a {
+    display:block;
+    height:100%;
+    width:100%;
+}
+
+table tr td {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+a.tableLink {
+  color: inherit;
+  text-decoration: inherit;
+}
 .carousel-inner .item {
     overflow: hidden;
     max-width: 100%;

@@ -29,13 +29,22 @@ public class Load extends HttpServlet {
 		Integer saveNumber = Integer.parseInt(request.getParameter("saveNumber"));
 		
 		HashSet<Item> cart = StorageFunctions.load(saveNumber);
+		
 		Double total = StorageFunctions.runningTotal(cart);
 		
-		request.getSession().setAttribute("cart", cart);
-		request.getSession().setAttribute("runningTotal", total);
-		String nextJSP = "/ShoppingCartPrinter";
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-		dispatcher.forward(request,response);
+		if(cart != null) {
+			request.getSession().setAttribute("cart", cart);
+			request.getSession().setAttribute("runningTotal", total);
+			String nextJSP = "/ShoppingCartPrinter";
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+			dispatcher.forward(request,response);
+		}
+		else {
+			String nextJSP = "/LoadDisplay.jsp";
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+			dispatcher.forward(request,response);
+		}
+		
 	}
 
 	/**

@@ -13,7 +13,7 @@ import java.util.Set;
 public class StorageFunctions {
 	
 	public static Integer save(HashSet<Item> cart, Integer saveNumber) throws FileNotFoundException, IOException {
-		File saves = new File("C:\\Users\\Work\\Documents\\ShoppingCartSaves");
+		File saves = new File(System.getenv("OSTORE_HOME") + "ShoppingCartSaves");
 		if(saveNumber == null)
 			for (int i = (int) (Math.random() * 100000); true; ++i) {
 				File temp = new File(saves, "save" + i + ".txt");
@@ -22,7 +22,7 @@ public class StorageFunctions {
 					break;
 				}
 			}
-		
+		System.out.println("saveFunction: " + cart);
 		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File(saves, "save" + saveNumber + ".txt")));
 		oos.writeObject(cart);	
 		oos.close();
@@ -34,7 +34,9 @@ public class StorageFunctions {
 	public static HashSet<Item> load(Integer saveNumber) throws FileNotFoundException, IOException {
 		HashSet<Item> cart = null;
 
-		File loc = new File("C:\\Users\\Work\\Documents\\ShoppingCartSaves\\save" + saveNumber + ".txt");
+		File loc = new File(System.getenv("OSTORE_HOME") + "ShoppingCartSaves\\save" + saveNumber + ".txt");
+		System.out.println("~~~~~~~~~~~~~~~~~Location: " + loc);
+		System.out.println(loc.exists());
 		if (loc.exists()) {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(loc));
 
@@ -45,7 +47,7 @@ public class StorageFunctions {
 			}
 			ois.close();
 		}
-
+		System.out.println(cart);
 		return cart;
 	}
 	

@@ -13,7 +13,7 @@
 
 	<div class="container-fluid">
 		<div class="jumbotron">
-			<h1>Blame the Project Manager:</h1>
+			<h1>Summer Fun:</h1>
 			<p>My attempt at a functioning shopping cart</p>
 		</div>
 
@@ -23,10 +23,10 @@
 		<div class="row">
 			<div class="col-sm-offset-3 col-sm-5">
 				<div class="well">
-					<p>Hello, my name is Tharun Selvakumar. I'm currently a junior at the University of Michigan. I had some free time, so I decided to make this website. I hope you enjoy it, though I understand that enjoying a shopping cart might be difficult to do.</p>
+					<p>Hi, my name is Tharun Selvakumar. I'm currently a junior at the University of Michigan. I had some free time, so I decided to make this website. I hope you enjoy it, though I understand that enjoying a shopping cart might be difficult to do.</p>
 				</div>
 				<div class="well">
-					<p>Welcome to the home page of my shopping cart website. I've got a working account system thing; try it out.</p>
+					<p>Welcome to the home page of my shopping cart website. I've got a working account system thing, a search bar, and other features; try it out.</p>
 				</div>
 			</div>
 

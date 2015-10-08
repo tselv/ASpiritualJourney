@@ -7,7 +7,7 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="home.jsp">Blame the Project Manager</a>
+			<a class="navbar-brand" href="home.jsp">Compound Interest</a>
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav">
@@ -24,6 +24,7 @@
 
 			<ul class="nav navbar-nav navbar-right">
 				<c:if test="${saveNumber != null}">
+				<li><a href="#">Hey ${clientName}, welcome back!</a></li>
 					<li><a href="LogOut"><span
 							class="glyphicon glyphicon-log-out"></span> Log out</a></li>
 				</c:if>

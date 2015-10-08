@@ -14,8 +14,7 @@
 		<div class="col-sm-offset-4 col-sm-4">
 			<h2>Save point   <span class="glyphicon glyphicon-ok"></span></h2>
 			<p>
-				Here is the number you can enter to continue using this cart next
-				time: <button style="cursor:auto" type="button" class="btn btn-primary disabled">${saveNumber}</button>
+				Here is the number. Write this down, so you can enter it later to reload your current cart: <button style="cursor:auto" type="button" class="btn btn-primary disabled">${saveNumber}</button>
 				</p>
 		</div>
 	</div>

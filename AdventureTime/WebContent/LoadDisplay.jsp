@@ -19,7 +19,7 @@
 					aria-valuemax="100" style="width: 60%"></div>
 			</div>
 			<form action="./Load">
-				Enter your save code: <input name="saveNumber">
+				Enter that one number you were suppose to write down earlier: <input name="saveNumber">
 				<button>Load Factor</button>
 			</form>
 		</div>

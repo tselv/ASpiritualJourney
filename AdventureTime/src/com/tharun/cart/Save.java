@@ -24,9 +24,10 @@ public class Save extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Integer saveNumber = (Integer) request.getSession().getAttribute("saveNumber");
+
 		HashSet<Item> cart = (HashSet<Item>)request.getSession().getAttribute("cart");
-		saveNumber = StorageFunctions.save(cart, saveNumber);
+		System.out.println("saveServlet: " + cart);
+		Integer saveNumber = StorageFunctions.save(cart, null);
 		
 		
 		request.setAttribute("saveNumber", saveNumber);

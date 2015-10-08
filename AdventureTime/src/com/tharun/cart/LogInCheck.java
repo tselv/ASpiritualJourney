@@ -35,7 +35,7 @@ public class LogInCheck extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		File loc = new File("C:\\Users\\Work\\Documents\\Accounts\\" + request.getParameter("userName") + ".txt");
+		File loc = new File(System.getenv("OSTORE_HOME") + "\\Accounts\\" + request.getParameter("userName") + ".txt");
 		String password = request.getParameter("password");
 		response.setContentType("text/plain");
 		PrintWriter out = response.getWriter();
@@ -52,9 +52,11 @@ public class LogInCheck extends HttpServlet {
 		ObjectInputStream ois = new ObjectInputStream(fis);
 		String pwd = null;
 		Integer saveNumber = null;
+		String name = null;
 		try {
 			pwd = (String) ois.readObject();
 			saveNumber = (Integer) ois.readObject();
+			name = (String) ois.readObject();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -68,6 +70,7 @@ public class LogInCheck extends HttpServlet {
 			
 			request.getSession().setAttribute("cart", cart);
 			request.getSession().setAttribute("runningTotal", total);
+			request.getSession().setAttribute("clientName", name);
 		}
 		else
 			out.print(0);

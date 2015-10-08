@@ -37,7 +37,7 @@ public class ShoppingCart extends HttpServlet {
     	Scanner scanner = null;
     	
     	
-		//scanner = new Scanner(new File("C:\\Users\\Work\\Documents\\ItemValues.txt"));
+		//scanner = new Scanner(new File(System.getenv("OSTORE_HOME") + "ItemValues.txt"));
 		ServletContext context = getServletContext();
 		InputStream resourceContent = context.getResourceAsStream("/WEB-INF/ItemValues.txt");
 		scanner = new Scanner(resourceContent);

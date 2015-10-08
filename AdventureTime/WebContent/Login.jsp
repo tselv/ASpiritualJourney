@@ -6,10 +6,10 @@
 <title>Log in</title>
 <jsp:include page="scriptsmeta.jsp"></jsp:include>
 <script type="text/javascript">
-var slideDuration = 2000;
+var slideDuration = 900;
 	$(function() {
 		$(".inButton").click(function() {
-		    $('.log').fadeOut({ duration: 4000, queue: false }).css('display', 'inherit').slideUp(4000);
+		    $('.log').fadeOut({ duration: slideDuration, queue: false }).css('display', 'inherit').slideUp(slideDuration);
 		    $('.reg').fadeIn({ duration: slideDuration, queue: false }).css('display', 'none').slideDown(slideDuration);
 		});
 		$(".outButton").click(function() {
@@ -56,10 +56,6 @@ var slideDuration = 2000;
 						placeholder="Enter a password" name="password">
 				</div>
 			</div>
-			<div class="checkbox col-sm-offset-4 col-sm-4">
-				<label><input type="checkbox"> Remember me (I haven't gotten around to implementing this)</label>
-			</div>
-			<br>
 			<div class="form-group">
 				<div class="col-sm-offset-4 col-sm-4">
 					<button type="submit" class="btn btn-success" onclick="return accLog();">Log In</button>
